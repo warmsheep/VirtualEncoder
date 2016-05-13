@@ -9,6 +9,8 @@ import org.warmsheep.encoder.actor.AbsActor;
 import org.warmsheep.encoder.bean.MSCommandBean;
 import org.warmsheep.encoder.constants.KeyConstants;
 import org.warmsheep.encoder.constants.RespCmdType;
+import org.warmsheep.encoder.enums.KeyLengthType;
+import org.warmsheep.encoder.enums.KeyType;
 import org.warmsheep.encoder.ic.RespCodeIC;
 import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.mac.impl.ANSIX919;
@@ -34,14 +36,21 @@ public class MSProcessor extends AbsActor {
 			MSCommandBean msCommandBean = MSCommandBean.build(header, commandType, requestData);
 			
 			byte[] macBytes = null;
+			String deKey = null;
+			if(msCommandBean.getKeyType().equals(KeyType.ZAK.getKey())){
+				deKey = KeyConstants.ZAK;
+			} else {
+				deKey = KeyConstants.TAK;
+			}
+			
 			//双倍长
-			if(msCommandBean.getKeyType().equals("1")){
+			if(msCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
 				ANSIX919 ansix919 = new ANSIX919();
-				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue().substring(1), KeyConstants.ZAK);
+				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue().substring(1), deKey);
 				macBytes = ansix919.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
-			} else if(msCommandBean.getKeyType().equals("0")){
+			} else if(msCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
 				ANSIX99 ansix99 = new ANSIX99();
-				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue(), KeyConstants.ZAK);
+				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue(), deKey);
 				macBytes = ansix99.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			}
 			
@@ -62,4 +71,6 @@ public class MSProcessor extends AbsActor {
 			return ABORTED | NO_JOIN;
 		}
 	}
+	
+	
 }
