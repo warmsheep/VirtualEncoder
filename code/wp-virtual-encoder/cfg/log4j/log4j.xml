@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+	<appender name="app" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/app/app.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
+		</layout>
+	</appender>
+	<appender name="hsm" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/hsm/hsm.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
+		</layout>
+	</appender>
+	<appender name="q2" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/q2/q2.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<param name="Encoding" value="UTF-8"/>
+		<param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m"/>
+		</layout>
+	</appender>
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<param name="Encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n"/>
+		</layout>
+	</appender>
+	<appender name="q2out" class="org.apache.log4j.ConsoleAppender">
+		<param name="Encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m"/>
+		</layout>
+	</appender>
+	<logger name="hsmLog" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="hsm"/>
+		<appender-ref ref="stdout"/>
+	</logger>
+	<logger name="q2Log" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="q2"/>
+		<appender-ref ref="q2out"/>
+	</logger>
+	<root>
+		<priority value="DEBUG"/>
+		<appender-ref ref="app"/>
+		<appender-ref ref="stdout"/>
+	</root>
+</log4j:configuration>

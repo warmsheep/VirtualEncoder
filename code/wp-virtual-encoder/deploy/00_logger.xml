@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logger 
+	name="Q2" 
+	class="org.jpos.q2.qbean.LoggerAdaptor">
+	<log-listener
+		class="org.warmsheep.encoder.util.Log4jListener">
+		<property name="config" value="cfg/log4j/log4j.xml" />
+		<property name="delay" value="300000" />
+		<property name="priority" value="DEBUG"/>
+		<property name="log-name" value="q2Log"/>
+	</log-listener>
+</logger>
+
+

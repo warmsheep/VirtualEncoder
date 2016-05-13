@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<transaction-manager name="txnmgr" logger="Q2">
+	<property name="debug" value="true"/>
+	<property name="profiler" value="true"/>
+	<property name="queue" value="txnmgr"/>
+	<property name="space" value="tspace:hsm"/>
+	
+	<!--  
+		业务选择器  
+	-->
+	<participant class="org.warmsheep.encoder.actor.selector.HsmSelector" logger="Q2">
+		<property name="MU" value="Valid MUProcessor Response"/>
+		<property name="CC" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="A0" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="MS" value="CommonValid MSProcessor Response"/>
+		<property name="E0" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="FK" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="A6" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="FA" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+	</participant>
+	
+	<!--  
+		格式验证器  
+	-->
+	<group name="CommonValid">
+		<participant class="org.warmsheep.encoder.actor.validator.CommonValid" logger="Q2">
+			<property name="request-data-length" value="166"/>
+		</participant>
+	</group>
+	
+	<group name="MSProcessor">
+		<participant class="org.warmsheep.encoder.actor.processor.MSProcessor" logger="Q2"/>
+	</group> 
+	
+	<!--  报文响应器  -->
+	<group name="Response">
+		<participant class="org.warmsheep.encoder.actor.processor.ResponseProcessor" logger="Q2"/>
+	</group> 
+</transaction-manager>

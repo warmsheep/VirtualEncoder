@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE isopackager SYSTEM "genericpackager.dtd">
+<!--  
+	加密机的报文解析器
+-->
+<isopackager emitBitmap="false" maxValidField="2">
+	<isofield
+		id="0"
+		length="8"
+		name="消息头"
+		pad="false"
+		class="org.jpos.iso.IF_CHAR"/>
+	<isofield
+		id="1"
+		length="2"
+		name="命令代码"
+		pad="false"
+		class="org.jpos.iso.IF_CHAR"/>
+	<isofield
+		id="2"
+		length="10"
+		name="报文内容"
+		pad="false"
+		class="org.warmsheep.encoder.comm.hsm.IF_REMAIN"/>
+</isopackager>

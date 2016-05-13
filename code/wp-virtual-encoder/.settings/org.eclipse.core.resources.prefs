@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/main/java/org/warmsheep/encoder/actor/AbsActor.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/actor/processor/MSProcessor.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/actor/processor/ResponseProcessor.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/actor/selector/HsmSelector.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/comm/HsmLogFilter.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/comm/HsmRequestListener.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/ic/LogIC.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/ic/RespCodeIC.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/ic/TxnIC.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/main/StartHsm.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/util/Log4jListener.java=UTF-8
+encoding//src/main/java/org/warmsheep/encoder/util/StringUtil.java=UTF-8

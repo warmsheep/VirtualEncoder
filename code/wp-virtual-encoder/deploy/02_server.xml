@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server 
+	name="hsm" 
+	class="org.jpos.q2.iso.QServer" 
+	logger="Q2">
+	<attr name="port" type="int">9998</attr>
+	<channel 
+		name="channel-hsm" 
+		class="org.jpos.iso.channel.NACChannel"
+		packager="org.jpos.iso.packager.GenericPackager"
+		logger="Q2"
+		header="">
+		<property name="packager-config" value="cfg/packager/hsm.xml" />
+		<filter
+			class="org.jpos.iso.filter.DebugFilter"
+			direction="both"
+			logger="Q2"/>
+		<filter
+			class="org.warmsheep.encoder.comm.HsmLogFilter"
+			direction="incoming"
+			logger="Q2">
+			<property name="A0" value="加密"/>
+			<property name="MS" value="MAC计算"/>
+		</filter>
+		<filter 
+			class="org.warmsheep.encoder.comm.HsmLogFilter"
+			direction="outgoing"
+			logger="Q2">
+			<property name="A0" value="加密"/>
+			<property name="MS" value="MAC计算"/>
+		</filter>
+	</channel>
+	<request-listener 
+		class="org.warmsheep.encoder.comm.HsmRequestListener"
+		logger="Q2">
+		<property name="timeout" value="30000"/>
+	</request-listener>
+</server>
