@@ -43,12 +43,25 @@ public class MSProcessor extends AbsActor {
 				deKey = KeyConstants.TAK;
 			}
 			
-			//双倍长
+			//双倍长密钥算法
 			if(msCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
 				ANSIX919 ansix919 = new ANSIX919();
-				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue().substring(1), deKey);
+				String encryptKeyValue = null;
+				//密钥第一位为X
+				if(msCommandBean.getKeyValue().substring(0,1).equalsIgnoreCase("X")){
+					encryptKeyValue = msCommandBean.getKeyValue().substring(1);
+				} 
+				//密钥第一位不为X
+				else {
+					encryptKeyValue = msCommandBean.getKeyValue();
+				}
+				//解密密钥
+				String clearKey = EncryptUtil.desDecryptToHex(encryptKeyValue, deKey);
+				//计算MAC
 				macBytes = ansix919.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
-			} else if(msCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
+			} 
+			//单倍长密钥算法
+			else if(msCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
 				ANSIX99 ansix99 = new ANSIX99();
 				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue(), deKey);
 				macBytes = ansix99.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
