@@ -11,12 +11,12 @@
 	<participant class="org.warmsheep.encoder.actor.selector.HsmSelector" logger="Q2">
 		<property name="MS" value="CommonValid MSProcessor Response"/>
 		<property name="MU" value="CommonValid MUProcessor Response"/>
-		<property name="CC" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
-		<property name="A0" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
-		<property name="E0" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
-		<property name="FK" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
-		<property name="A6" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
-		<property name="FA" value="InfoFormatValid CommonValid InfoValidProcessor Response"/>
+		<property name="CC" value="CommonValid CCProcessor Response"/>
+		<property name="A0" value="CommonValid  Response"/>
+		<property name="E0" value="CommonValid  Response"/>
+		<property name="FK" value="CommonValid  Response"/>
+		<property name="A6" value="CommonValid  Response"/>
+		<property name="FA" value="CommonValid  Response"/>
 	</participant>
 	
 	<!--  
@@ -33,6 +33,9 @@
 	</group> 
 	<group name="MUProcessor">
 		<participant class="org.warmsheep.encoder.actor.processor.MUProcessor" logger="Q2"/>
+	</group> 
+	<group name="CCProcessor">
+		<participant class="org.warmsheep.encoder.actor.processor.CCProcessor" logger="Q2"/>
 	</group> 
 	
 	<!--  报文响应器  -->

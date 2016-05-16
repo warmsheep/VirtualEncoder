@@ -1,5 +1,7 @@
 package org.warmsheep.encoder.bean;
 
+import org.warmsheep.encoder.enums.KeyLengthType;
+
 
 public class MSCommandBean extends CommandBean{
 	
@@ -14,9 +16,19 @@ public class MSCommandBean extends CommandBean{
 		msCommandBean.setKeyType(commandContent.substring(subIndex, subIndex += KEY_TYPE_LENGTH));
 		msCommandBean.setKeyLengthType(commandContent.substring(subIndex, subIndex += KEY_LENGTH_TYPE_LENGTH));
 		msCommandBean.setMsgType(commandContent.substring(subIndex, subIndex += MSG_TYPE_LENGTH));
-		if(msCommandBean.getKeyLengthType().equals("1")){
-			msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_LENGTH));
-		} else {
+		
+		if(msCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
+			//双倍长密钥，以X开头
+			if(commandContent.substring(subIndex,subIndex + 1).equalsIgnoreCase("X")){
+				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_LENGTH));
+			} 
+			//双倍长密钥，标准长度
+			else {
+				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_ADD_ONE_LENGTH));
+			}
+		}
+		//单倍长密钥
+		else {
 			msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += SINGLE_KEY_LENGTH));
 		}
 		msCommandBean.setEncryptDataLength(Integer.valueOf(commandContent.substring(subIndex, subIndex += DATA_LENGTH), 16).toString());

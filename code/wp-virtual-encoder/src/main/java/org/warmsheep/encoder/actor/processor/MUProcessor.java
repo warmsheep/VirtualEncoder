@@ -18,7 +18,7 @@ import org.warmsheep.encoder.security.mac.impl.EcardMac;
 import org.warmsheep.util.security.utils.EncryptUtil;
 
 /**
- * MS指令处理器
+ * MU指令处理器
  * 
  */
 public class MUProcessor extends AbsActor {
@@ -72,7 +72,7 @@ public class MUProcessor extends AbsActor {
 				context.put(TxnIC.RESULT_CODE, RespCodeIC.SUCCESS);
 				context.put(TxnIC.RESULT_DATA, ISOUtil.hexString(macBytes));
 			} else {
-				context.put(TxnIC.RESULT_TYPE, RespCmdType.MT);
+				context.put(TxnIC.RESULT_TYPE, RespCmdType.MV);
 				//TODO待实现
 				context.put(TxnIC.RESULT_CODE, RespCodeIC.FORMAT_ERROR);
 			}
