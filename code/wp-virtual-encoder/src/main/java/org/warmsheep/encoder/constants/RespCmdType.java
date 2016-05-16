@@ -12,4 +12,6 @@ public class RespCmdType {
 	public static final String MV = "MV";	//MU的回应类型
 	
 	public static final String CD = "CD";	//CC的回应类型
+	
+	public static final String A1 = "A1";	//A0的回应类型
 }

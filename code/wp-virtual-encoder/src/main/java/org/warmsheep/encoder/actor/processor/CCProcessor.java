@@ -45,7 +45,7 @@ public class CCProcessor extends AbsActor {
 				sourceEncryptKeyValue = ccCommandBean.getSourceZpk();
 			}
 			//解密密钥
-			sourceTpkClearText = EncryptUtil.desDecryptToHex(sourceEncryptKeyValue, KeyConstants.ZPK);
+			sourceTpkClearText = EncryptUtil.desDecryptToHex(sourceEncryptKeyValue, KeyConstants.ZPK_001);
 			
 			
 			String targetTpkClearText = null;
@@ -59,7 +59,7 @@ public class CCProcessor extends AbsActor {
 				targetEncryptKeyValue = ccCommandBean.getTargetZpk();
 			}
 			//解密密钥
-			targetTpkClearText = EncryptUtil.desDecryptToHex(targetEncryptKeyValue, KeyConstants.ZPK);
+			targetTpkClearText = EncryptUtil.desDecryptToHex(targetEncryptKeyValue, KeyConstants.ZPK_001);
 			
 			String pinBlockEncryptLength = null;
 			String pinBlockEncryptText = null;

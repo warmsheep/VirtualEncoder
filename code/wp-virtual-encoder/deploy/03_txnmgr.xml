@@ -12,7 +12,7 @@
 		<property name="MS" value="CommonValid MSProcessor Response"/>
 		<property name="MU" value="CommonValid MUProcessor Response"/>
 		<property name="CC" value="CommonValid CCProcessor Response"/>
-		<property name="A0" value="CommonValid  Response"/>
+		<property name="A0" value="CommonValid A0Processor Response"/>
 		<property name="E0" value="CommonValid  Response"/>
 		<property name="FK" value="CommonValid  Response"/>
 		<property name="A6" value="CommonValid  Response"/>
@@ -36,6 +36,9 @@
 	</group> 
 	<group name="CCProcessor">
 		<participant class="org.warmsheep.encoder.actor.processor.CCProcessor" logger="Q2"/>
+	</group> 
+	<group name="A0Processor">
+		<participant class="org.warmsheep.encoder.actor.processor.A0Processor" logger="Q2"/>
 	</group> 
 	
 	<!--  报文响应器  -->

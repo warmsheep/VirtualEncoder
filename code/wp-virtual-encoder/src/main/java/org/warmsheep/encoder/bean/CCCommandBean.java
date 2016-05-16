@@ -3,6 +3,11 @@ package org.warmsheep.encoder.bean;
 
 public class CCCommandBean extends CommandBean{
 	
+	private static final int DOUBLE_KEY_ADD_ONE_LENGTH = 33;//双倍长密钥域长度33（带X）
+	private static final int DOUBLE_KEY_LENGTH = 32;		//双倍长密钥域长度32（不带X）
+	private static final int SINGLE_KEY_LENGTH = 16;		//单倍长密钥域长度
+	
+	
 	public static CCCommandBean build(String header,String commandType,String commandContent){
 		CCCommandBean ccCommandBean = new CCCommandBean();
 		ccCommandBean.setCommandHeader(header);

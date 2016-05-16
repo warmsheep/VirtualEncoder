@@ -38,9 +38,9 @@ public class MSProcessor extends AbsActor {
 			byte[] macBytes = null;
 			String deKey = null;
 			if(msCommandBean.getKeyType().equals(KeyType.ZAK.getKey())){
-				deKey = KeyConstants.ZAK;
+				deKey = KeyConstants.ZAK_008;
 			} else {
-				deKey = KeyConstants.TAK;
+				deKey = KeyConstants.TAK_003;
 			}
 			
 			//双倍长密钥算法
