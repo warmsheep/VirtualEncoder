@@ -1,5 +1,6 @@
 package org.warmsheep.encoder.security.mac.impl;
 
+import org.jpos.iso.ISOUtil;
 import org.paychina.common.security.des.impl.DESede;
 import org.paychina.common.security.exception.MacException;
 import org.paychina.common.security.mac.AbstractMac;
@@ -26,13 +27,21 @@ public class EcardMac extends AbstractMac {
 			for (int i = 0; i < groupLen; i++) {
 				zero = ed.encrypt(getExclusiveOR(body[i], zero));
 			}
-			byte[] result = new byte[4];
-			System.arraycopy(zero, 0, result, 0, 4);
-			zero = (byte[]) null;
-			return result;
+			return zero;
+//			byte[] result = new byte[4];
+//			System.arraycopy(zero, 0, result, 0, 4);
+//			zero = (byte[]) null;
+//			return result;
 		} catch (Exception e) {
 			System.err.println(e);
 			throw new MacException("MAC计算有误," + e.getMessage());
 		}
+	}
+	
+	public static void main(String[] args) throws MacException {
+		EcardMac mac = new EcardMac();
+		byte[] bs = mac.getMac(ISOUtil.hex2byte("11111111111111112222222222222222"), ISOUtil.hex2byte("40404040404040405151515151515151"));
+		String mac1 = ISOUtil.hexString(bs);
+		System.out.println(mac1);
 	}
 }

@@ -8,4 +8,6 @@ package org.warmsheep.encoder.constants;
 public class RespCmdType {
 
 	public static final String MT = "MT";	//MS的回应类型
+	
+	public static final String MV = "MV";	//MU的回应类型
 }
