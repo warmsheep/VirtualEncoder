@@ -3,85 +3,131 @@ package org.warmsheep.encoder.bean;
 
 public class MSCommandBean extends CommandBean{
 	
-	public static void main(String[] args) {
-		MSCommandBean ms = MSCommandBean.build("00000000", "MS", "0111X0132489825A28733B576EBB168757975002509551004910001353852000000000000001000000010142514122801563030303031313235");
-		System.out.println(ms.toString());
-		
-		Integer i =  Integer.parseInt(ms.getEncryptDataLength());
-		System.out.println(i);
-		System.out.println(ms.getEncryptDataValue().length());
-	}
-	
-
-	
 	public static MSCommandBean build(String header,String commandType,String commandContent){
 		MSCommandBean msCommandBean = new MSCommandBean();
 		msCommandBean.setCommandHeader(header);
 		msCommandBean.setCommandType(commandType);
 		
-		int i = 0;
+		int subIndex = 0;
 		
-		msCommandBean.setMsgBlock(commandContent.substring(i, i += MSG_BLOCK_LENGTH));
-		msCommandBean.setKeyType(commandContent.substring(i, i += KEY_TYPE_LENGTH));
-		msCommandBean.setKeyLengthType(commandContent.substring(i, i += KEY_LENGTH_TYPE_LENGTH));
-		msCommandBean.setMsgType(commandContent.substring(i, i += MSG_TYPE_LENGTH));
+		msCommandBean.setMsgBlock(commandContent.substring(subIndex, subIndex += MSG_BLOCK_LENGTH));
+		msCommandBean.setKeyType(commandContent.substring(subIndex, subIndex += KEY_TYPE_LENGTH));
+		msCommandBean.setKeyLengthType(commandContent.substring(subIndex, subIndex += KEY_LENGTH_TYPE_LENGTH));
+		msCommandBean.setMsgType(commandContent.substring(subIndex, subIndex += MSG_TYPE_LENGTH));
 		if(msCommandBean.getKeyLengthType().equals("1")){
-			msCommandBean.setKeyValue(commandContent.substring(i, i += DOUBLE_KEY_LENGTH));
+			msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_LENGTH));
 		} else {
-			msCommandBean.setKeyValue(commandContent.substring(i, i += SINGLE_KEY_LENGTH));
+			msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += SINGLE_KEY_LENGTH));
 		}
-		msCommandBean.setEncryptDataLength(Integer.valueOf(commandContent.substring(i, i += DATA_LENGTH), 16).toString());
-		msCommandBean.setEncryptDataValue(commandContent.substring(i, i+= (Integer.valueOf(msCommandBean.getEncryptDataLength()) * 2) ) );
+		msCommandBean.setEncryptDataLength(Integer.valueOf(commandContent.substring(subIndex, subIndex += DATA_LENGTH), 16).toString());
+		msCommandBean.setEncryptDataValue(commandContent.substring(subIndex, subIndex+= (Integer.valueOf(msCommandBean.getEncryptDataLength()) * 2) ) );
 		
 		return msCommandBean;
 	}
 
-	private String msgBlock;
-	private String keyType;
-	private String keyLengthType;
-	private String msgType;
-	private String keyValue;
-	private String encryptDataLength;
-	private String encryptDataValue;
+	private String msgBlock;		//报文块标志 0唯一块 1第一块 2中间块 3最后块
+	private String keyType;			//密钥类型 0TAK 1ZAK
+	private String keyLengthType;	//密钥长度类型	0 8字节单倍长 1 16字节双倍长
+	private String msgType;			//数据类型 0二进制 1扩展十六进制
+	private String keyValue;		//密钥值
+	private String encryptDataLength;		//待加密的数据长度
+	private String encryptDataValue;		//待加密的数据
+	
+	/**
+	 * 报文块标志 0唯一块 1第一块 2中间块 3最后块
+	 * @return
+	 */
 	public String getMsgBlock() {
 		return msgBlock;
 	}
+	/**
+	 * 报文块标志 0唯一块 1第一块 2中间块 3最后块
+	 * @param msgBlock
+	 */
 	public void setMsgBlock(String msgBlock) {
 		this.msgBlock = msgBlock;
 	}
+	/**
+	 * 密钥类型 0TAK 1ZAK
+	 * @return
+	 */
 	public String getKeyType() {
 		return keyType;
 	}
+	/**
+	 * 密钥类型 0TAK 1ZAK
+	 * @param keyType
+	 */
 	public void setKeyType(String keyType) {
 		this.keyType = keyType;
 	}
+	/**
+	 * 密钥长度类型	0 8字节单倍长 1 16字节双倍长
+	 * @return
+	 */
 	public String getKeyLengthType() {
 		return keyLengthType;
 	}
+	/**
+	 * 密钥长度类型	0 8字节单倍长 1 16字节双倍长
+	 * @param keyLengthType
+	 */
 	public void setKeyLengthType(String keyLengthType) {
 		this.keyLengthType = keyLengthType;
 	}
+	/**
+	 * 数据类型 0二进制 1扩展十六进制
+	 * @return
+	 */
 	public String getMsgType() {
 		return msgType;
 	}
+	/**
+	 * 数据类型 0二进制 1扩展十六进制
+	 * @param msgType
+	 */
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
+	/**
+	 * 密钥值
+	 * @return
+	 */
 	public String getKeyValue() {
 		return keyValue;
 	}
+	/**
+	 * 密钥值
+	 * @param keyValue
+	 */
 	public void setKeyValue(String keyValue) {
 		this.keyValue = keyValue;
 	}
+	/**
+	 * 待加密的数据长度
+	 * @return
+	 */
 	public String getEncryptDataLength() {
 		return encryptDataLength;
 	}
+	/**
+	 * 待加密的数据长度
+	 * @param encryptDataLength
+	 */
 	public void setEncryptDataLength(String encryptDataLength) {
 		this.encryptDataLength = encryptDataLength;
 	}
+	/**
+	 * 待加密的数据
+	 * @return
+	 */
 	public String getEncryptDataValue() {
 		return encryptDataValue;
 	}
+	/**
+	 * 待加密的数据
+	 * @param encryptDataValue
+	 */
 	public void setEncryptDataValue(String encryptDataValue) {
 		this.encryptDataValue = encryptDataValue;
 	}
