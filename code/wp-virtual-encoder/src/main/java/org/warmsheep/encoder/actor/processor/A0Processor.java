@@ -109,11 +109,11 @@ public class A0Processor extends AbsActor {
 			}
 			
 			if(StringUtils.isNotBlank(randomKeyOnLmk)){
-				context.put(TxnIC.RESULT_TYPE, RespCmdType.MT);
+				context.put(TxnIC.RESULT_TYPE, RespCmdType.A1);
 				context.put(TxnIC.RESULT_CODE, RespCodeIC.SUCCESS);
 				context.put(TxnIC.RESULT_DATA, randomKeyOnLmk.toUpperCase() + randomKeyOnZmk.toUpperCase() + checkValue.toUpperCase());
 			} else {
-				context.put(TxnIC.RESULT_TYPE, RespCmdType.MT);
+				context.put(TxnIC.RESULT_TYPE, RespCmdType.A1);
 				//TODO待实现
 				context.put(TxnIC.RESULT_CODE, RespCodeIC.FORMAT_ERROR);
 			}
