@@ -32,7 +32,6 @@ public class CCProcessor extends AbsActor {
 			String requestData = reqMsg.getString(2);
 			
 			CCCommandBean ccCommandBean = CCCommandBean.build(header, commandType, requestData);
-			System.out.println(ccCommandBean.toString());
 			
 			String sourceTpkClearText = null;
 			String sourceEncryptKeyValue = null;
@@ -85,9 +84,6 @@ public class CCProcessor extends AbsActor {
 				}
 				pinBlockEncryptText = EncryptUtil.desEncryptHexString(pinBlockClearText, targetTpkClearText);
 			}
-			
-			
-			System.out.println(pinBlockEncryptText);
 			
 			if(StringUtils.isNotBlank(pinBlockEncryptText)){
 				context.put(TxnIC.RESULT_TYPE, RespCmdType.CD);
