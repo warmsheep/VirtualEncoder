@@ -11,7 +11,7 @@ public class MSCommandBean extends CommandBean{
 	private static final int KEY_LENGTH_TYPE_LENGTH = 1;		//密钥长度类型域长度
 	private static final int MSG_TYPE_LENGTH = 1;			//数据类型域长度
 	
-	private static final int DOUBLE_KEY_ADD_ONE_LENGTH = 33;		//双倍长密钥域长度33（带X）
+	private static final int DOUBLE_KEY_ADD_ONE_LENGTH = 33;//双倍长密钥域长度33（带X）
 	private static final int DOUBLE_KEY_LENGTH = 32;		//双倍长密钥域长度32（不带X）
 	private static final int SINGLE_KEY_LENGTH = 16;		//单倍长密钥域长度
 	

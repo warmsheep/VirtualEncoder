@@ -2,10 +2,16 @@ package org.warmsheep.encoder.actor.processor;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
+import org.jpos.iso.ISOMsg;
 import org.jpos.transaction.Context;
 import org.warmsheep.encoder.actor.AbsActor;
+import org.warmsheep.encoder.bean.FACommandBean;
+import org.warmsheep.encoder.constants.KeyConstants;
+import org.warmsheep.encoder.constants.RespCmdType;
 import org.warmsheep.encoder.ic.RespCodeIC;
 import org.warmsheep.encoder.ic.TxnIC;
+import org.warmsheep.util.security.utils.EncryptUtil;
 
 
 /**
@@ -19,7 +25,50 @@ public class FAProcessor extends AbsActor {
 	public int prepare(long id, Serializable serializable) {
 		Context context = (Context) serializable;
 		try {
+			ISOMsg reqMsg = (ISOMsg) context.get(TxnIC.MSG_HSM);
+			String header = reqMsg.getString(0);
+			String commandType = reqMsg.getString(1);
+			String requestData = reqMsg.getString(2);
 			
+			FACommandBean faCommandBean = FACommandBean.build(header, commandType, requestData);
+			
+			String encryptKey = KeyConstants.ZPK_001;
+			
+			//解析主密钥明文
+			String zmkCipher = null;
+			if(faCommandBean.getZmkCipher().substring(0,1).equalsIgnoreCase("X")){
+				zmkCipher = faCommandBean.getZmkCipher().substring(1);
+			} else {
+				zmkCipher = faCommandBean.getZmkCipher();
+			}
+			String zmkClearText = EncryptUtil.desDecryptToHex(zmkCipher, KeyConstants.ZMK_000);
+			
+			//解析工作密钥明文
+			String keyOnZmk = null;
+			//双倍长密钥
+			if(faCommandBean.getKeyOnZmk().substring(0,1).equalsIgnoreCase("X")){
+				keyOnZmk = faCommandBean.getKeyOnZmk().substring(1);
+			} else {
+				keyOnZmk = faCommandBean.getKeyOnZmk();
+			}
+			String keyClearText = EncryptUtil.desDecryptToHex(keyOnZmk, zmkClearText);
+			
+			//转加密
+			String keyOnLmk = EncryptUtil.desEncryptHexString(keyClearText, encryptKey);
+			if(keyOnLmk.length() == 32){
+				
+			}
+			String checkValue = EncryptUtil.desEncryptHexString("0000000000000000", keyClearText);
+			
+			if(StringUtils.isNotBlank(keyOnLmk)){
+				context.put(TxnIC.RESULT_TYPE, RespCmdType.FB);
+				context.put(TxnIC.RESULT_CODE, RespCodeIC.SUCCESS);
+				context.put(TxnIC.RESULT_DATA, keyOnLmk.toUpperCase() + checkValue.toUpperCase());
+			} else {
+				context.put(TxnIC.RESULT_TYPE, RespCmdType.FB);
+				//TODO待实现
+				context.put(TxnIC.RESULT_CODE, RespCodeIC.FORMAT_ERROR);
+			}
 			
 			return PREPARED | NO_JOIN;
 		} catch (Exception e) {
