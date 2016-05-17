@@ -30,11 +30,11 @@ public class MSCommandBean extends CommandBean{
 		if(msCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
 			//双倍长密钥，以X开头
 			if(commandContent.substring(subIndex,subIndex + 1).equalsIgnoreCase("X")){
-				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_LENGTH));
+				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_ADD_ONE_LENGTH));
 			} 
 			//双倍长密钥，标准长度
 			else {
-				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_ADD_ONE_LENGTH));
+				msCommandBean.setKeyValue(commandContent.substring(subIndex, subIndex += DOUBLE_KEY_LENGTH));
 			}
 		}
 		//单倍长密钥
