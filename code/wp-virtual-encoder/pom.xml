@@ -91,7 +91,7 @@
 					<classesDirectory>target/classes/</classesDirectory>
 					<archive>
 						<manifest>
-							<mainClass>org.paychina.gateway.test.StartApp</mainClass>
+							<mainClass>org.warmsheep.encoder.main.StartHsm</mainClass>
 							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
 							<useUniqueVersions>false</useUniqueVersions>
 							<addClasspath>true</addClasspath>
@@ -122,6 +122,20 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<failOnError>true</failOnError>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<compilerArgument>-nowarn</compilerArgument>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
