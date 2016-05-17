@@ -1,7 +1,6 @@
 package org.warmsheep.encoder.security.mac;
 
-import org.apache.commons.logging.Log;
-import org.paychina.common.security.exception.MacException;
+import org.warmsheep.encoder.security.exception.MacException;
 
 public abstract class AbstractMac {
 	

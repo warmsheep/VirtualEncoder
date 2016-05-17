@@ -1,6 +1,6 @@
 package org.warmsheep.encoder.enums;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 密钥类型

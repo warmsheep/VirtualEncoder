@@ -1,9 +1,9 @@
 package org.warmsheep.encoder.security.mac.impl;
 
-import org.paychina.common.security.des.impl.Des;
-import org.paychina.common.security.exception.MacException;
-import org.paychina.common.security.mac.AbstractMac;
-import org.paychina.common.security.utils.ByteUtil;
+import org.warmsheep.encoder.security.des.impl.Des;
+import org.warmsheep.encoder.security.exception.MacException;
+import org.warmsheep.encoder.security.mac.AbstractMac;
+import org.warmsheep.encoder.security.util.ByteUtil;
 
 public class PospMac extends AbstractMac {
 	public byte[] getMac(byte[] src, byte[] tak) throws MacException {

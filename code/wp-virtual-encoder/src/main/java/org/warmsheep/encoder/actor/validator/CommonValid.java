@@ -2,7 +2,7 @@ package org.warmsheep.encoder.actor.validator;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jpos.iso.ISOMsg;
 import org.jpos.transaction.Context;
 import org.warmsheep.encoder.actor.AbsActor;

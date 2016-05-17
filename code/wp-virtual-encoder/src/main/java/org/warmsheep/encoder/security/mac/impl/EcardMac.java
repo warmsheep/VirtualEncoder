@@ -1,9 +1,9 @@
 package org.warmsheep.encoder.security.mac.impl;
 
 import org.jpos.iso.ISOUtil;
-import org.paychina.common.security.des.impl.DESede;
-import org.paychina.common.security.exception.MacException;
-import org.paychina.common.security.mac.AbstractMac;
+import org.warmsheep.encoder.security.des.impl.DESede;
+import org.warmsheep.encoder.security.exception.MacException;
+import org.warmsheep.encoder.security.mac.AbstractMac;
 
 public class EcardMac extends AbstractMac {
 	public byte[] getMac(byte[] src, byte[] tak) throws MacException {

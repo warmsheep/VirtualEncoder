@@ -19,15 +19,25 @@
 			class="org.warmsheep.encoder.comm.HsmLogFilter"
 			direction="incoming"
 			logger="Q2">
-			<property name="A0" value="加密"/>
-			<property name="MS" value="MAC计算"/>
+			<property name="A0" value="产生工作密钥"/>
+			<property name="A6" value="导入密钥"/>
+			<property name="CC" value="PIN转加密"/>
+			<property name="FA" value="ZPK转加密"/>
+			<property name="FK" value="ZAK转加密"/>
+			<property name="MS" value="产生报文MAC"/>
+			<property name="MU" value="计算数据CBC-MAC"/>
 		</filter>
 		<filter 
 			class="org.warmsheep.encoder.comm.HsmLogFilter"
 			direction="outgoing"
 			logger="Q2">
-			<property name="A0" value="加密"/>
-			<property name="MS" value="MAC计算"/>
+			<property name="A1" value="产生工作密钥"/>
+			<property name="A7" value="导入密钥"/>
+			<property name="CD" value="PIN转加密"/>
+			<property name="FB" value="ZPK转加密"/>
+			<property name="FL" value="ZAK转加密"/>
+			<property name="MT" value="产生报文MAC"/>
+			<property name="MV" value="计算数据CBC-MAC"/>
 		</filter>
 	</channel>
 	<request-listener 

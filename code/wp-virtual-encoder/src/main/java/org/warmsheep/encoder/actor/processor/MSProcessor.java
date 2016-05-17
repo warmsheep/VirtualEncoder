@@ -15,7 +15,7 @@ import org.warmsheep.encoder.ic.RespCodeIC;
 import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.mac.impl.ANSIX919;
 import org.warmsheep.encoder.security.mac.impl.ANSIX99;
-import org.warmsheep.util.security.utils.EncryptUtil;
+import org.warmsheep.encoder.security.util.EncryptUtil;
 
 /**
  * MS指令处理器
