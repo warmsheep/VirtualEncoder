@@ -101,4 +101,21 @@ public class A6CommandBean extends CommandBean{
 		this.keyFlag = keyFlag;
 	}
 	
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("[").append("CommandHeader").append("]:\t[").append("命令头").append("]:\t[").append(this.getCommandHeader()).append("]\n");
+		
+		sb.append("[").append("CommandType").append("]:\t\t[").append("命令类型").append("]:\t[").append(this.getCommandType()).append("]\n");
+		
+		sb.append("[").append("KeyType").append("]:\t\t[").append("密钥类型").append("]:\t[").append(this.getKeyType()).append("]\n");
+		
+		sb.append("[").append("ZmkCipher").append("]:\t\t[").append("ZMK密文").append("]:\t[").append(this.getZmkCipher()).append("]\n");
+		
+		sb.append("[").append("KeyOnZmk").append("]:\t[").append("密钥密文").append("]:\t[").append(this.getKeyOnZmk()).append("]\n");
+		
+		sb.append("[").append("KeyFlag").append("]:\t\t[").append("密钥标识").append("]:\t[").append(this.getKeyFlag()).append("]\n");
+		
+		return sb.toString();
+	}
 }

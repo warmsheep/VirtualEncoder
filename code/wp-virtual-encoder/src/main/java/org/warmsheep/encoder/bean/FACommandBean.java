@@ -139,5 +139,24 @@ public class FACommandBean extends CommandBean{
 		this.checkValueFlag = checkValueFlag;
 	}
 	
-	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("[").append("CommandHeader").append("]:\t[").append("命令头").append("]:\t[").append(this.getCommandHeader()).append("]\n");
+		
+		sb.append("[").append("CommandType").append("]:\t\t[").append("命令类型").append("]:\t[").append(this.getCommandType()).append("]\n");
+		
+		sb.append("[").append("ZmkCipher").append("]:\t\t[").append("ZMK密文").append("]:\t[").append(this.getZmkCipher()).append("]\n");
+		
+		sb.append("[").append("KeyOnZmk").append("]:\t[").append("密钥密文").append("]:\t[").append(this.getKeyOnZmk()).append("]\n");
+		
+		sb.append("[").append("Separator").append("]:\t\t[").append("分隔符").append("]:\t[").append(this.getSeparator()).append("]\n");
+		
+		sb.append("[").append("ZmkKeyFlag").append("]:\t\t[").append("ZMK密钥标识").append("]:\t[").append(this.getZmkKeyFlag()).append("]\n");
+		
+		sb.append("[").append("LmkKeyFlag").append("]:\t[").append("LMK密钥标识").append("]:\t[").append(this.getLmkKeyFlag()).append("]\n");
+		
+		sb.append("[").append("CheckValueFlag").append("]:\t[").append("校验值").append("]:\t[").append(this.getCheckValueFlag()).append("]\n");
+		
+		return sb.toString();
+	}
 }

@@ -116,6 +116,23 @@ public class A0CommandBean extends CommandBean{
 	}
 	
 	
-	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("[").append("CommandHeader").append("]:\t[").append("命令头").append("]:\t[").append(this.getCommandHeader()).append("]\n");
+		
+		sb.append("[").append("CommandType").append("]:\t\t[").append("命令类型").append("]:\t[").append(this.getCommandType()).append("]\n");
+		
+		sb.append("[").append("GenerateMode").append("]:\t\t[").append("密钥产生模式").append("]:\t[").append(this.getGenerateMode()).append("]\n");
+		
+		sb.append("[").append("KeyType").append("]:\t\t[").append("密钥类型").append("]:\t[").append(this.getKeyType()).append("]\n");
+		
+		sb.append("[").append("LmkKeyFlag").append("]:\t[").append("LMK密钥标识").append("]:\t[").append(this.getLmkKeyFlag()).append("]\n");
+		
+		sb.append("[").append("ZmkCipher").append("]:\t\t[").append("ZMK密文").append("]:\t[").append(this.getZmkCipher()).append("]\n");
+		
+		sb.append("[").append("ZmkKeyFlag").append("]:\t\t[").append("ZMK密钥标识").append("]:\t[").append(this.getZmkKeyFlag()).append("]\n");
+		
+		return sb.toString();
+	}
 	
 }
