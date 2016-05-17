@@ -6,7 +6,7 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 import org.jpos.transaction.Context;
 import org.warmsheep.encoder.actor.AbsActor;
-import org.warmsheep.encoder.bean.MSCommandBean;
+import org.warmsheep.encoder.bean.MUCommandBean;
 import org.warmsheep.encoder.constants.KeyConstants;
 import org.warmsheep.encoder.constants.RespCmdType;
 import org.warmsheep.encoder.enums.KeyLengthType;
@@ -33,38 +33,38 @@ public class MUProcessor extends AbsActor {
 			String commandType = reqMsg.getString(1);
 			String requestData = reqMsg.getString(2);
 			
-			MSCommandBean msCommandBean = MSCommandBean.build(header, commandType, requestData);
+			MUCommandBean muCommandBean = MUCommandBean.build(header, commandType, requestData);
 			
 			byte[] macBytes = null;
 			String deKey = null;
-			if(msCommandBean.getKeyType().equals(KeyType.ZAK.getKey())){
+			if(muCommandBean.getKeyType().equals(KeyType.ZAK.getKey())){
 				deKey = KeyConstants.ZAK_008;
 			} else {
 				deKey = KeyConstants.TAK_003;
 			}
 			
 			//双倍长密钥算法
-			if(msCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
+			if(muCommandBean.getKeyLengthType().equals(KeyLengthType.DOUBLE_LENGTH.getKey())){
 				EcardMac ecardMac = new EcardMac();
 				String encryptKeyValue = null;
 				//密钥第一位为X
-				if(msCommandBean.getKeyValue().substring(0,1).equalsIgnoreCase("X")){
-					encryptKeyValue = msCommandBean.getKeyValue().substring(1);
+				if(muCommandBean.getKeyValue().substring(0,1).equalsIgnoreCase("X")){
+					encryptKeyValue = muCommandBean.getKeyValue().substring(1);
 				} 
 				//密钥第一位不为X
 				else {
-					encryptKeyValue = msCommandBean.getKeyValue();
+					encryptKeyValue = muCommandBean.getKeyValue();
 				}
 				//解密密钥
 				String clearKey = EncryptUtil.desDecryptToHex(encryptKeyValue, deKey);
 				//计算MAC
-				macBytes = ecardMac.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
+				macBytes = ecardMac.getMac(ISOUtil.hex2byte(muCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			} 
 			//单倍长密钥算法
-			else if(msCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
+			else if(muCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
 				ANSIX99 ansix99 = new ANSIX99();
-				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue(), deKey);
-				macBytes = ansix99.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
+				String clearKey = EncryptUtil.desDecryptToHex(muCommandBean.getKeyValue(), deKey);
+				macBytes = ansix99.getMac(ISOUtil.hex2byte(muCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			}
 			
 			if(macBytes != null){
