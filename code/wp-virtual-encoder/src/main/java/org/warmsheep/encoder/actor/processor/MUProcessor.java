@@ -16,6 +16,7 @@ import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.mac.impl.ANSIX99;
 import org.warmsheep.encoder.security.mac.impl.EcardMac;
 import org.warmsheep.encoder.security.util.EncryptUtil;
+import org.warmsheep.encoder.security.util.OddEventCheckUtil;
 
 /**
  * MU指令处理器
@@ -57,6 +58,8 @@ public class MUProcessor extends AbsActor {
 				}
 				//解密密钥
 				String clearKey = EncryptUtil.desDecryptToHex(encryptKeyValue, deKey);
+				//明文进行奇偶校验
+				clearKey = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(clearKey), 0));
 				//计算MAC
 				macBytes = ecardMac.getMac(ISOUtil.hex2byte(muCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			} 
@@ -64,6 +67,8 @@ public class MUProcessor extends AbsActor {
 			else if(muCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
 				ANSIX99 ansix99 = new ANSIX99();
 				String clearKey = EncryptUtil.desDecryptToHex(muCommandBean.getKeyValue(), deKey);
+				//明文进行奇偶校验
+				clearKey = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(clearKey), 0));
 				macBytes = ansix99.getMac(ISOUtil.hex2byte(muCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			}
 			

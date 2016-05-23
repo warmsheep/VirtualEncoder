@@ -16,6 +16,7 @@ import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.mac.impl.ANSIX919;
 import org.warmsheep.encoder.security.mac.impl.ANSIX99;
 import org.warmsheep.encoder.security.util.EncryptUtil;
+import org.warmsheep.encoder.security.util.OddEventCheckUtil;
 
 /**
  * MS指令处理器
@@ -57,6 +58,9 @@ public class MSProcessor extends AbsActor {
 				}
 				//解密密钥
 				String clearKey = EncryptUtil.desDecryptToHex(encryptKeyValue, deKey);
+				//明文进行奇偶校验
+				clearKey = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(clearKey), 0));
+				
 				//计算MAC
 				macBytes = ansix919.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			} 
@@ -64,6 +68,8 @@ public class MSProcessor extends AbsActor {
 			else if(msCommandBean.getKeyLengthType().equals(KeyLengthType.SINGLE_LENGTH.getKey())){
 				ANSIX99 ansix99 = new ANSIX99();
 				String clearKey = EncryptUtil.desDecryptToHex(msCommandBean.getKeyValue(), deKey);
+				//明文进行奇偶校验
+				clearKey = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(clearKey), 0));
 				macBytes = ansix99.getMac(ISOUtil.hex2byte(msCommandBean.getEncryptDataValue()), ISOUtil.hex2byte(clearKey));
 			}
 			

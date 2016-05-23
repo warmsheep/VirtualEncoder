@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.ISOUtil;
 import org.jpos.transaction.Context;
 import org.warmsheep.encoder.actor.AbsActor;
 import org.warmsheep.encoder.bean.FACommandBean;
@@ -12,6 +13,7 @@ import org.warmsheep.encoder.constants.RespCmdType;
 import org.warmsheep.encoder.ic.RespCodeIC;
 import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.util.EncryptUtil;
+import org.warmsheep.encoder.security.util.OddEventCheckUtil;
 
 
 /**
@@ -42,6 +44,8 @@ public class FAProcessor extends AbsActor {
 				zmkCipher = faCommandBean.getZmkCipher();
 			}
 			String zmkClearText = EncryptUtil.desDecryptToHex(zmkCipher, KeyConstants.ZMK_000);
+			//明文进行奇偶校验
+			zmkClearText = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(zmkClearText), 0));
 			
 			//解析工作密钥明文
 			String keyOnZmk = null;
@@ -52,6 +56,8 @@ public class FAProcessor extends AbsActor {
 				keyOnZmk = faCommandBean.getKeyOnZmk();
 			}
 			String keyClearText = EncryptUtil.desDecryptToHex(keyOnZmk, zmkClearText);
+			//明文进行奇偶校验
+			keyClearText = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(keyClearText), 0));
 			
 			//转加密
 			String keyOnLmk = EncryptUtil.desEncryptHexString(keyClearText, encryptKey);

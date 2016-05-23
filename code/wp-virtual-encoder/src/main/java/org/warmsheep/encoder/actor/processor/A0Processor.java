@@ -102,6 +102,10 @@ public class A0Processor extends AbsActor {
 					zmkCipher = zmkCipher.substring(1);
 				}
 				String zmkClearText = EncryptUtil.desDecryptToHex(zmkCipher, KeyConstants.ZMK_000);
+				//明文进行奇偶校验
+				zmkClearText = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(zmkClearText), 0));
+				
+				
 				randomKeyOnZmk = EncryptUtil.desEncryptHexString(ISOUtil.hexString(randomKeyBytes), zmkClearText);
 				if(a0CommandBean.getZmkKeyFlag().equalsIgnoreCase("X")){
 					randomKeyOnZmk = "X" + randomKeyOnZmk;

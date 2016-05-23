@@ -13,6 +13,7 @@ import org.warmsheep.encoder.constants.RespCmdType;
 import org.warmsheep.encoder.ic.RespCodeIC;
 import org.warmsheep.encoder.ic.TxnIC;
 import org.warmsheep.encoder.security.util.EncryptUtil;
+import org.warmsheep.encoder.security.util.OddEventCheckUtil;
 import org.warmsheep.encoder.security.util.PinUtil;
 
 /**
@@ -59,6 +60,8 @@ public class CCProcessor extends AbsActor {
 			}
 			//解密密钥
 			targetTpkClearText = EncryptUtil.desDecryptToHex(targetEncryptKeyValue, KeyConstants.ZPK_001);
+			//明文进行奇偶校验
+			targetTpkClearText = ISOUtil.hexString(OddEventCheckUtil.parityOfOdd(ISOUtil.hex2byte(targetTpkClearText), 0));
 			
 			String pinBlockEncryptLength = null;
 			String pinBlockEncryptText = null;

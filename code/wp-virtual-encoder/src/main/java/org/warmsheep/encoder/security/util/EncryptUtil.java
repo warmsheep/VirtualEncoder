@@ -7,6 +7,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jpos.iso.ISOUtil;
 
 /**
  * DES加密工具类
@@ -97,7 +98,7 @@ public class EncryptUtil {
 
 		Cipher cipher = Cipher.getInstance(model);
 		cipher.init(1, deskey);
-		return ByteUtil.toHexString(cipher.doFinal(message.getBytes("UTF-8")));
+		return ISOUtil.hexString(cipher.doFinal(message.getBytes("UTF-8")));
 	}
 	
 	public static String desEncryptHexString(String message,String key) throws Exception {
@@ -114,7 +115,7 @@ public class EncryptUtil {
 
 		Cipher cipher = Cipher.getInstance(model);
 		cipher.init(1, deskey);
-		return ByteUtil.toHexString(cipher.doFinal(ByteUtil.convertHexString(message)));
+		return ISOUtil.hexString(cipher.doFinal(ISOUtil.hex2byte(message)));
 	}
 	
 	/**
